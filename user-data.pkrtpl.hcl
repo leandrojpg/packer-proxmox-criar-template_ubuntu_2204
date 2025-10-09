@@ -27,8 +27,7 @@ autoinstall:
       disable_root: false
   packages:
       - ca-certificates
-      - cloud-init
-      - qemu-guest-agent
+      - cloud-init      
   late-commands:
     - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config
     - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
