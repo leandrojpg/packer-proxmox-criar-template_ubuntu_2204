@@ -2,8 +2,10 @@
 
 2 - Crie os arquivos 
 touch /data/template.pkr.hcl  
+
 touch /data/data/meta-data 
-touch /data/data/user-data.pkrtpl.hcl
+
+touch /data/data/user-data.pkrtpl.hcl  
 
 3 - Gere a senha hasheada para ser usada na criacao do template usado no arquivo user-data.pkrtpl.hcl na linha password openssl passwd -6 -salt xyz ubuntu@123, O resultado do comando cole na linha password no arquivo user-data.pkrtpl.hcl
 
