@@ -1,6 +1,7 @@
 1 - Crie um pasta na raiz mkdir -p /data/data  
 
 2 - Crie os arquivos 
+
 touch /data/template.pkr.hcl  
 
 touch /data/data/meta-data 
