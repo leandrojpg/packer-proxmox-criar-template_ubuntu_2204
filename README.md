@@ -12,6 +12,7 @@ touch /data/data/user-data.pkrtpl.hcl
 
 4 - Execute o packer
 packer init .  
+
 packer build template.pkr.hcl  
 
 5-############## PULO DO GATO APENAS PARA VMWARE #################
