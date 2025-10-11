@@ -1,4 +1,6 @@
-1 - Crie um pasta na raiz mkdir -p /data/data  
+1 - Crie um pasta na raiz  
+
+mkdir -p /data/data  
 
 2 - Crie os arquivos 
 
