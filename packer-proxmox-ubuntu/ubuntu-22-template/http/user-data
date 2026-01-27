@@ -1,0 +1,45 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+
+  ssh:
+    install-server: true
+    allow-pw: true
+    disable_root: false
+
+  storage:
+    swap:
+      size: 0
+    layout:
+      name: lvm
+
+  user-data:
+    users:
+      - name: ubuntu
+        gecos: Ubuntu
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+        lock_passwd: false
+        passwd: "$6$leandrosaltfixo$spdJDrdWMycINQP5Phvysm0WtcwvCdOspJK7miEZqEUiei3hl1MPNZAgyeSXfBItwWmzdbBc8.tHXVCFsGz10."
+
+  packages:
+    - qemu-guest-agent
+    - sudo
+    - ca-certificates
+    - openssh-server
+    - netplan.io
+
+  network:
+    version: 2
+    ethernets:
+      default:
+        match:
+          name: "e*"
+        dhcp4: true
+
+  late-commands:
+    - curtin in-target --target=/target -- sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
