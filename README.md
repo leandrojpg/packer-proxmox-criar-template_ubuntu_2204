@@ -1,5 +1,12 @@
 1 - Crie um pasta na raiz  
 
+
+mkdir -p /data/data
+mkdir packer-proxmox-ubuntu
+mkdir ubuntu-22-template
+mkdir files
+mkdir http
+
 mkdir -p /data/data  
 
 2 - Crie os arquivos 
