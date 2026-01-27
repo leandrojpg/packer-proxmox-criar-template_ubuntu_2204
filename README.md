@@ -1,23 +1,17 @@
 1 - Crie um pasta na raiz  
-
-
-mkdir -p /data/data
 mkdir packer-proxmox-ubuntu
 mkdir ubuntu-22-template
 mkdir files
 mkdir http
 
-mkdir -p /data/data  
-
 2 - Crie os arquivos 
+touch credentials.pkr.hcl  
+touch files/99-pve.cfg  
+touch http/meta-data  
+touch http/user-data  
+touch ubuntu-22-raw.pkr.hcl 
 
-touch /data/template.pkr.hcl  
-
-touch /data/data/meta-data 
-
-touch /data/data/user-data.pkrtpl.hcl  
-
-3 - Gere a senha hasheada para ser usada na criacao do template usado no arquivo user-data.pkrtpl.hcl na linha password openssl passwd -6 -salt xyz ubuntu@123, O resultado do comando cole na linha password no arquivo user-data.pkrtpl.hcl
+3 - Gere a senha hasheada para ser usada na criacao do template usado no arquivo user-data.pkrtpl.hcl na linha password mkpasswd -m sha-512 -S leandrosaltfixo ubuntu@123, O resultado do comando cole na linha password no arquivo user-data.pkrtpl.hcl
 
 4 - Execute o packer
 packer init .  
