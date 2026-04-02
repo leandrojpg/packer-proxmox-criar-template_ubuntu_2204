@@ -1,22 +1,25 @@
-1 - Crie um pasta na raiz  
-mkdir -p /opt/packer-proxmox-ubuntu  
-mkdir -p /opt/ubuntu-22-template  
-mkdir -p /opt/packer-proxmox-ubuntu/ubuntu-22-template/files  
-mkdir -p /opt/packer-proxmox-ubuntu/ubuntu-22-template/http  
+1 - Clone o repo 
+cd /opt        
+git clone https://github.com/leandrojpg/packer-proxmox-criar-template_ubuntu_2204.git  
+cd /opt/packer-proxmox-criar-template_ubuntu_2204/packer-proxmox-ubuntu/  
 
-2 - Crie os arquivos 
-touch /opt/packer-proxmox-ubuntu/ubuntu-22-raw.pkr.hcl  
-touch /opt/packer-proxmox-ubuntu/ubuntu-22-template/files/99-pve.cfg  
-touch /opt/packer-proxmox-ubuntu/ubuntu-22-template/http/meta-data  
-touch /opt/packer-proxmox-ubuntu/ubuntu-22-template/http/user-data  
-touch /opt/packer-proxmox-ubuntu/ubuntu-22-template/ubuntu-22-raw.pkr.hcl  
+2 - Edite as credenciais abaixo no arquivo credentials.pkr.hcl de acordo com seu ambiente  
+cat /opt/packer-proxmox-criar-template_ubuntu_2204/packer-proxmox-ubuntu/credentials.pkr.hcl  
 
-3 - Gere a senha hasheada para ser usada na criacao do template usado no arquivo user-data.pkrtpl.hcl na linha password mkpasswd -m sha-512 -S leandrosaltfixo ubuntu@123, O resultado do comando cole na linha password no arquivo user-data.pkrtpl.hcl
+proxmox_url = "https://192.168.18.31:8006/api2/json" 
+proxmox_username = "root@pam"  
+proxmox_password = ""  
 
-cd /opt/packer-proxmox-ubuntu  
-4 - Execute o packer
-packer init .  
+3 - Não altere nada nas opões abaixo:  Os valores abaixo são Usuário e Senha definido no template  
+template_so_password = "ubuntu@123"  
+template_so_password_hash = "$6$leandrosaltfixo$spdJDrdWMycINQP5Phvysm0WtcwvCdOspJK7miEZqEUiei3hl1MPNZAgyeSXfBItwWmzdbBc8.tHXVCFsGz10."  
 
+
+"Abaixo é apenas um exemplo de como foi gerada o Hash acima ( NÃO PRECISA FAZER NADA )"  
+Gere a senha hasheada para ser usada na criacao do template usado no arquivo user-data.pkrtpl.hcl na linha password mkpasswd -m sha-512 -S leandrosaltfixo ubuntu@123, O resultado do comando cole na linha password no arquivo user-data.pkrtpl.hcl
+
+4 - Executando a criação do template  
+cd /opt/packer-proxmox-criar-template_ubuntu_2204/packer-proxmox-ubuntu
 packer build -var-file="credentials.pkr.hcl" ubuntu-22-template/ubuntu-22-raw.pkr.hcl
 
 5-############## PULO DO GATO APENAS PARA VMWARE #################  
