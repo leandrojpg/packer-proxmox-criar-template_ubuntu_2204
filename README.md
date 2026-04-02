@@ -1,19 +1,19 @@
 1 - Crie um pasta na raiz  
-mkdir packer-proxmox-ubuntu
-mkdir ubuntu-22-template
-mkdir files
-mkdir http
+mkdir -p /opt/packer-proxmox-ubuntu
+mkdir -p /opt/ubuntu-22-template
+mkdir -p /opt/packer-proxmox-ubuntu/ubuntu-22-template/files  
+mkdir -p /opt/packer-proxmox-ubuntu/ubuntu-22-template/http  
 
 2 - Crie os arquivos 
-touch credentials.pkr.hcl  
-touch files/99-pve.cfg  
-touch http/meta-data  
-touch http/user-data  
-touch ubuntu-22-raw.pkr.hcl 
+touch /opt/packer-proxmox-ubuntu/ubuntu-22-raw.pkr.hcl  
+touch /opt/packer-proxmox-ubuntu/ubuntu-22-template/files/99-pve.cfg  
+touch /opt/packer-proxmox-ubuntu/ubuntu-22-template/http/meta-data  
+touch /opt/packer-proxmox-ubuntu/ubuntu-22-template/http/user-data  
+touch /opt/packer-proxmox-ubuntu/ubuntu-22-template/ubuntu-22-raw.pkr.hcl  
 
 3 - Gere a senha hasheada para ser usada na criacao do template usado no arquivo user-data.pkrtpl.hcl na linha password mkpasswd -m sha-512 -S leandrosaltfixo ubuntu@123, O resultado do comando cole na linha password no arquivo user-data.pkrtpl.hcl
 
-cd packer-proxmox-ubuntu  
+cd /opt/packer-proxmox-ubuntu  
 4 - Execute o packer
 packer init .  
 
