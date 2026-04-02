@@ -1,6 +1,6 @@
 1 - Crie um pasta na raiz  
-mkdir -p /opt/packer-proxmox-ubuntu
-mkdir -p /opt/ubuntu-22-template
+mkdir -p /opt/packer-proxmox-ubuntu  
+mkdir -p /opt/ubuntu-22-template  
 mkdir -p /opt/packer-proxmox-ubuntu/ubuntu-22-template/files  
 mkdir -p /opt/packer-proxmox-ubuntu/ubuntu-22-template/http  
 
