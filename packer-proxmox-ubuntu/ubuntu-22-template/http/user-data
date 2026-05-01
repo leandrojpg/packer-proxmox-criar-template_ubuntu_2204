@@ -1,8 +1,8 @@
 #cloud-config
 autoinstall:
   version: 1
-
   locale: en_US.UTF-8
+
   keyboard:
     layout: us
 
@@ -16,15 +16,6 @@ autoinstall:
       size: 0
     layout:
       name: lvm
-
-  user-data:
-    users:
-      - name: ubuntu
-        gecos: Ubuntu
-        sudo: ALL=(ALL) NOPASSWD:ALL
-        shell: /bin/bash
-        lock_passwd: false
-        passwd: "$6$leandrosaltfixo$spdJDrdWMycINQP5Phvysm0WtcwvCdOspJK7miEZqEUiei3hl1MPNZAgyeSXfBItwWmzdbBc8.tHXVCFsGz10."
 
   packages:
     - qemu-guest-agent
@@ -40,6 +31,20 @@ autoinstall:
         match:
           name: "e*"
         dhcp4: true
+  user-data:
+    users:
+      - name: ubuntu
+        gecos: Ubuntu
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+        lock_passwd: false
+        passwd: "$6$leandrosaltfixo$spdJDrdWMycINQP5Phvysm0WtcwvCdOspJK7miEZqEUiei3hl1MPNZAgyeSXfBItwWmzdbBc8.tHXVCFsGz10."
 
   late-commands:
     - curtin in-target --target=/target -- sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    - curtin in-target --target=/target -- sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+    - curtin in-target --target=/target -- mkdir -p /root/.ssh
+    - curtin in-target --target=/target -- bash -c "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCjRGH9/dFAG1Ugt1yj3Pp0AzhTNRWEtJXTuseh/4GEVW+930Yqz+jRSGitep/SS5VUF3hg8OO96mjSBN78uK3N6CKI3pyTNLiUB+xYOgJS23w3aO7Op7DTpMlsYdAqJgAhhGRpFm73hwF0f+cIbtoJ/BuUbWWzinXh+yBQ4EytYJO1Oc1pWEII9Vu2xYV10uJGoguMMb48+B5C3cY73c91Oh90JTOBqGe9qQ/sSBoBH3I5ZP9hqsPwPnsSTmUeAM2Kif9qp/QyZtEJ6dgE+GgLipqhpB7rJru/wIl4m2GDWtm9pueK2cIXRZYrRBl6tjdyY27Prh5DeFWao7EXx+N9B0NlNVvUb2mgc6Z9WKSNGi0FptovY7/87eU/EHF6eC/7NhzFdjviaYopWW0f3zqnV4o6fbHtLtCW+GU0798jA0lGEdziGrdsRKnrwSUk52Xyiug1psF3QyWzUEHuRnyTjGj46Fc5GpnkCgfQ5ZiYTJ2Wz1J1ElluY3bmxc0moZM= root@node01' > /root/.ssh/authorized_keys"
+    - curtin in-target --target=/target -- chmod 700 /root/.ssh
+    - curtin in-target --target=/target -- chmod 600 /root/.ssh/authorized_keys
+    - curtin in-target --target=/target -- ssh-keygen -A
